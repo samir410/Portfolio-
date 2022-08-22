@@ -50,6 +50,10 @@
             <label for="inputEmail" placeholder=" ">Email address</label>
         </div>
         </div>
+        <div class="col-md-12 mb-2">
+            <img id="preview-image-before-upload" src="{{asset('storage/img')}}/{{$abouts->profile_image}}"
+            alt="preview image" style="max-height: 250px;">
+            </div>
         <div class="col-md-6">
         <div class="form-floating mb-6 mb-md-0" class="img-fluid w-200">
             <div class="img-hover-zoom" >
@@ -86,4 +90,39 @@
         
     </form>
 </div>
+<script type="text/javascript">
+    $(document).ready(function (e) {
+    $.ajaxSetup({
+    headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+    });
+    $('#image').change(function(){
+    let reader = new FileReader();
+    reader.onload = (e) => { 
+    $('#preview-image-before-upload').attr('src', e.target.result); 
+    }
+    reader.readAsDataURL(this.files[0]); 
+    });
+    $('#image-upload').submit(function(e) {
+    e.preventDefault();
+    var formData = new FormData(this);
+    $.ajax({
+    type:'POST',
+    url: "{{ url('upload')}}",
+    data: formData,
+    cache:false,
+    contentType: false,
+    processData: false,
+    success: (data) => {
+    this.reset();
+    alert('Image has been uploaded using jQuery ajax successfully');
+    },
+    error: function(data){
+    console.log(data);
+    }
+    });
+    });
+    });
+    </script>
 @endsection

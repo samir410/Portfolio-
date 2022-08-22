@@ -26,6 +26,7 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/online-user', [AdminController::class, 'index']);
     Route::prefix('dashboard')->group( function(){
         Route::get('/about_me', [AdminController::class, 'about_me'])->name('dashboard.about_me');
         Route::post('/about_me/store', [AdminController::class, 'store'])->name('dashboard.about_me.store');

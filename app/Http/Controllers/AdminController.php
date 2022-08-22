@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\About;
+use App\Models\User;
 use Carbon\Carbon;
 use Storage;
 
@@ -10,6 +11,15 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    public function index(Request $request)
+    {
+        $users = User::select("*")
+                        ->whereNotNull('last_seen')
+                        ->orderBy('last_seen', 'DESC')
+                        ->paginate(10);
+          
+        return view('Admin.user', compact('users'));
+    }
     public function dashboard()
     {
         return view('Admin.dashboard');
