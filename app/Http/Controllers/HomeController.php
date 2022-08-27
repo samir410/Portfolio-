@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\About;
+use App\Models\Skill;
 
 use Illuminate\Http\Request;
 
@@ -10,8 +11,10 @@ class HomeController extends Controller
     public function home()
     {
         $about = About::get();
-    //  dd($about);
-        return view('Client.home',compact('about'));
+        $skills = Skill::get();
+
+   
+        return view('Client.home',compact('about','skills'));
     }
     // public function home()
     // {

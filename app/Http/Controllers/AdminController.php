@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 use App\Models\About;
 use App\Models\User;
+use App\Models\Skill;
 use Carbon\Carbon;
+use DB;
 use Storage;
 
 use Illuminate\Http\Request;
@@ -151,5 +153,76 @@ class AdminController extends Controller
 
 
     }
+
+
+    ////skill
+    public function add_skill(){
+        return view('Admin.skill');
+    }
+    public function skill_data_store(Request $request){
+        $validatedData = $request->validate([
+            'skill_name' => 'required|unique:skills,skill_name',
+            'level' => 'required|numeric|max:100|min:0',
+       
+        
+        ]);
+        // dd($request->descripbtion1);
+        if($request->input('skill_name')){
+            $skills= new Skill();
+            $skills->skill_name = $request->input('skill_name');
+            $skills->level = $request->input('level');
+            $skills->created_at = Carbon::now();
+            $skills->save();
+
+             return redirect('/dashboard/add_skill')->with('status','The '. $skills->skill_name .' successfully added');
+        }
+        else {
+            return redirect('/dashboard/add_skill')->with('status1',' store failed');
+           }
+
+
+    }
+    public function skill_data_view(){
+        $skills = Skill::get();
+        return view('Admin.skill_view',compact('skills'));
+    }
+
+    
+    public function edit_skill($skill_id){
+        $skills=DB::table('skills')
+        ->where('skill_id',$skill_id)->first();
+        // $skills = Skill::find($skill_id);
+        return view('Admin.skill_update',compact('skills'));
+    }
+    public function skill_update(Request $request,$skill_id){
+            $validatedData = $request->validate([
+                'skill_name' => 'required',
+                'level' => 'required|numeric|max:100|min:0',
+            ]);
+            // dd($request->descripbtion1);
+            $skills=DB::table('skills')
+            ->where('skill_id',$skill_id)->first();
+            if($request->input('skill_name')){
+                // $skills->skill_name = $request->input('skill_name');
+                // $skills->level = $request->input('level');
+                // $skills->created_at = Carbon::now();
+                // $skills->update();
+                $data=array ();
+                $data['skill_name'] = $request->skill_name;
+                $data['level'] = $request->level;
+                $result= DB::table('skills')
+                ->where('skill_id',$skill_id)
+                ->update($data);
+    
+                 return redirect('/dashboard/skill_data_view')->with('status',' successfully added');
+            }
+            else {
+                return redirect('/dashboard/skill_update')->with('status1',' store failed');
+               }
+
+     }
+
+
+
    
 }

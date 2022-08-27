@@ -87,8 +87,8 @@
                                             {{-- <a class="nav-link" href="{{ url('/dashboard') }}">Resume</a>
                                             <a class="nav-link" href="{{ url('/dashboard') }}">Protfolio</a> --}}
                                             <a class="nav-link" href="{{ route('dashboard.about_view') }}">About me Data</a>
-                                            {{-- <a class="nav-link" href="{{ url('/dashboard') }}">Service</a>
-                                            <a class="nav-link" href="{{ url('/dashboard') }}">Contact me</a> --}}
+                                            <a class="nav-link" href="{{ url('/dashboard/skill_data_view') }}">Service</a>
+                                            {{-- <a class="nav-link" href="{{ url('/dashboard') }}">Contact me</a> --}}
                                         </nav>
                                     </div>
                                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
@@ -100,7 +100,7 @@
                                             <a class="nav-link" href="{{ url('/dashboard') }}">Resume</a>
                                             <a class="nav-link" href="{{ url('/dashboard') }}">Protfolio</a>
                                             <a class="nav-link" href="{{ route('dashboard.about_me') }}">About me</a>
-                                            <a class="nav-link" href="{{ url('/dashboard') }}">Service</a>
+                                            <a class="nav-link" href="{{ url('dashboard/add_skill') }}">Add Skills data</a>
                                             <a class="nav-link" href="{{ url('/dashboard') }}">Contact me</a>
                                         </nav>
                                     </div>
